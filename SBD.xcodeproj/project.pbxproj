@@ -21,9 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		91F7C94C23C43B86009DF00C /* ProcessChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C94B23C43B86009DF00C /* ProcessChannel.swift */; };
-		91F7C95023C48652009DF00C /* Daemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C94F23C48652009DF00C /* Daemon.swift */; };
 		91F7C95223C487F2009DF00C /* process_management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95123C487F2009DF00C /* process_management.swift */; };
+		91F7C95423C56701009DF00C /* Daemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95323C56701009DF00C /* Daemon.swift */; };
 		OBJ_24 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_31 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_42 /* SBDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SBDTests.swift */; };
@@ -48,9 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		91F7C94B23C43B86009DF00C /* ProcessChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessChannel.swift; sourceTree = "<group>"; };
-		91F7C94F23C48652009DF00C /* Daemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Daemon.swift; sourceTree = "<group>"; };
 		91F7C95123C487F2009DF00C /* process_management.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = process_management.swift; sourceTree = "<group>"; };
+		91F7C95323C56701009DF00C /* Daemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Daemon.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SBDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_17 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -106,7 +104,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -116,7 +114,6 @@
 				OBJ_17 /* LICENSE */,
 				OBJ_18 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -131,9 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* main.swift */,
-				91F7C94B23C43B86009DF00C /* ProcessChannel.swift */,
-				91F7C94F23C48652009DF00C /* Daemon.swift */,
 				91F7C95123C487F2009DF00C /* process_management.swift */,
+				91F7C95323C56701009DF00C /* Daemon.swift */,
 			);
 			name = SBD;
 			path = Sources/SBD;
@@ -205,7 +201,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_14 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -224,9 +220,8 @@
 			buildActionMask = 0;
 			files = (
 				91F7C95223C487F2009DF00C /* process_management.swift in Sources */,
+				91F7C95423C56701009DF00C /* Daemon.swift in Sources */,
 				OBJ_24 /* main.swift in Sources */,
-				91F7C94C23C43B86009DF00C /* ProcessChannel.swift in Sources */,
-				91F7C95023C48652009DF00C /* Daemon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
