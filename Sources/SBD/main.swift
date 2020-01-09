@@ -10,7 +10,7 @@ func execute(argc:Int32, argv:[String]) -> Int32 {
     
     if argv.contains("--daemon") {
         print("daemon")
-        let daemon = Daemon(argc: argc, argv: argv, env: [:])
+        let daemon = DaemonService(argc: argc, argv: argv, env: [:])
         return daemon.start()
     }
     

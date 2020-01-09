@@ -6,72 +6,102 @@
 //
 
 import Foundation
-import Darwin
 
-class Daemon: NSObject, PortDelegate {
+protocol Daemon {
+    func main(_ action:((Daemon) -> Void)?)
+    func start() -> Int32
+    func stop() -> Int32
+}
+
+class DaemonService: Daemon {
     
-    private let argv: [String]
-    private let argc: Int32
-    private let environment: [String:String]
-    private let port: Port
-    private var started: Bool
-    private let loop: RunLoop
-    private let signalTrap: SignalTrap = SignalTrap()
+    fileprivate let argv: [String]
+    fileprivate let argc: Int32
+    fileprivate let environment: [String:String]
+    fileprivate var timer: Timer = Timer()
+    fileprivate var running: Bool = false
+    fileprivate let loop: RunLoop
+    fileprivate let signalTrap: SignalTrap = SignalTrap()
+    fileprivate var action: ((Daemon) -> Void)?
     
     init(argc: Int32, argv: [String], env: [String: String]) {
-        self.started = false
         self.argc = argc
         self.argv = argv
         self.environment = env
-        self.port = Port()
         self.loop = RunLoop.current
-        self.loop.add(port, forMode: .default)
         
-        super.init()
+        __SignalTransfer.shared(daemon: self)
         bindSignal()
     }
     
     private func bindSignal() {
-        signalTrap.handle(signal: SIGHUP) { value in
-            print("Signal value: \(value)")
+        signalTrap.handle(sender: self, signal: SIGHUP) { value in
+            __SignalTransfer.shared().send(signal: value)
         }
     }
     
+    @discardableResult
     func start() -> Int32 {
-        if started {
+        if running {
             return -1
         }
         
-        print("Fooooi demo")
+        running = true
+        while running {
+            action?(self)
+            sleep(1)
+        }
         
-        self.port.setDelegate(self)
-        self.loop.run()
+        print("Terminei")
+        
         return 0
     }
     
+    @discardableResult
     func stop() -> Int32 {
-        if started {
+        if running {
+            running = false
             return 0
         }
         
         return -1
     }
     
-    func handle(_ message: PortMessage) {
-        
+    func main(_ action: ((Daemon) -> Void)?) {
+        self.action = action
+    }
+    
+    func trap(signal:Int32) {
+        if signal == SIGHUP {
+            self.stop()
+        }
     }
 }
 
-
-class SignalTrap {
+private class __SignalTransfer {
     
-    typealias SignalHandler = @convention(c)(Int32) -> Void
+    private static var selfRef: __SignalTransfer?
+    private var daemon: DaemonService
     
-    func handle(signal:Int32, action: @escaping SignalHandler) {
-        typealias SignalAction = sigaction
+    private init(daemon:DaemonService) {
+        self.daemon = daemon
+    }
+    
+    @discardableResult
+    static func shared(daemon:DaemonService? = nil) -> __SignalTransfer {
+        if let ref = selfRef {
+            return ref
+        }
         
-        var sig_action_struct = sigaction()
-        sig_action_struct.__sigaction_u = unsafeBitCast(action, to: __sigaction_u.self)
-        sigaction(signal, &sig_action_struct, nil)
+        if let daemon = daemon {
+            selfRef = __SignalTransfer(daemon: daemon)
+            return selfRef!
+        }
+        
+        fatalError("Fail. No daemon defined")
+    }
+    
+    func send(signal: Int32) {
+        daemon.trap(signal: signal)
     }
 }
