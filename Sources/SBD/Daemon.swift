@@ -7,13 +7,7 @@
 
 import Foundation
 
-protocol Daemon {
-    func main(_ action:((Daemon) -> Void)?)
-    func start() -> Int32
-    func stop() -> Int32
-}
-
-class DaemonService: Daemon {
+class Daemon {
     
     fileprivate let argv: [String]
     fileprivate let argc: Int32
@@ -81,14 +75,14 @@ class DaemonService: Daemon {
 private class __SignalTransfer {
     
     private static var selfRef: __SignalTransfer?
-    private var daemon: DaemonService
+    private var daemon: Daemon
     
-    private init(daemon:DaemonService) {
+    private init(daemon:Daemon) {
         self.daemon = daemon
     }
     
     @discardableResult
-    static func shared(daemon:DaemonService? = nil) -> __SignalTransfer {
+    static func shared(daemon:Daemon? = nil) -> __SignalTransfer {
         if let ref = selfRef {
             return ref
         }
