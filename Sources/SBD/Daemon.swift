@@ -1,30 +1,22 @@
-//
-//  Daemon.swift
-//  SBD
-//
-//  Created by dede.exe on 07/01/20.
-//
-
 import Foundation
 
-class Daemon {
+final class Daemon: KernelHandler {
     
+    fileprivate let kernel: Kernel
     fileprivate let argv: [String]
     fileprivate let argc: Int32
-    fileprivate let environment: [String:String]
+    fileprivate var environment: [String:String] = [:]
     fileprivate var timer: Timer = Timer()
     fileprivate var running: Bool = false
-    fileprivate let loop: RunLoop
     fileprivate let signalTrap: SignalTrap = SignalTrap()
-    fileprivate var action: ((Daemon) -> Void)?
+    fileprivate var exitStatus: Int32 = 0
     
-    init(argc: Int32, argv: [String], env: [String: String]) {
+    init(argc: Int32, argv: [String], kernel: Kernel) {
         self.argc = argc
         self.argv = argv
-        self.environment = env
-        self.loop = RunLoop.current
-        
+        self.kernel = kernel
         __SignalTransfer.shared(daemon: self)
+        
         bindSignal()
     }
     
@@ -34,42 +26,45 @@ class Daemon {
         }
     }
     
+    private func wait() {
+        while running {
+            sleep(50)
+        }
+    }
+    
     @discardableResult
-    func start() -> Int32 {
+    func execute() -> Int32 {
         if running {
             return -1
         }
         
         running = true
-        while running {
-            action?(self)
-            sleep(1)
-        }
-        
-        print("Terminei")
-        
-        return 0
+        kernel.execute(argc: argc, argv: argv, env: environment)
+        wait()
+        return exitStatus
     }
     
     @discardableResult
-    func stop() -> Int32 {
+    func shutdown() -> Int32 {
+        exitStatus = -1
+        
         if running {
             running = false
-            return 0
+            exitStatus = 0
         }
         
-        return -1
-    }
-    
-    func main(_ action: ((Daemon) -> Void)?) {
-        self.action = action
+        return exitStatus
     }
     
     func trap(signal:Int32) {
-        if signal == SIGHUP {
-            self.stop()
-        }
+        kernel.trap(signal: signal)
     }
+    
+    func exit(status: Int32) {
+        exitStatus = status
+        shutdown()
+    }
+    
 }
 
 private class __SignalTransfer {

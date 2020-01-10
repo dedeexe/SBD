@@ -24,6 +24,8 @@
 		91F7C95223C487F2009DF00C /* process_management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95123C487F2009DF00C /* process_management.swift */; };
 		91F7C95423C56701009DF00C /* Daemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95323C56701009DF00C /* Daemon.swift */; };
 		91F7C95623C6D13A009DF00C /* SignalTrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95523C6D13A009DF00C /* SignalTrap.swift */; };
+		91F7C95823C80EF1009DF00C /* Kernel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95723C80EF1009DF00C /* Kernel.swift */; };
+		91F7C95B23C82337009DF00C /* KernelProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7C95A23C82337009DF00C /* KernelProcess.swift */; };
 		OBJ_24 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_31 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_42 /* SBDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SBDTests.swift */; };
@@ -51,6 +53,8 @@
 		91F7C95123C487F2009DF00C /* process_management.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = process_management.swift; sourceTree = "<group>"; };
 		91F7C95323C56701009DF00C /* Daemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Daemon.swift; sourceTree = "<group>"; };
 		91F7C95523C6D13A009DF00C /* SignalTrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalTrap.swift; sourceTree = "<group>"; };
+		91F7C95723C80EF1009DF00C /* Kernel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kernel.swift; sourceTree = "<group>"; };
+		91F7C95A23C82337009DF00C /* KernelProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelProcess.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SBDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_17 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -79,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91F7C95923C82310009DF00C /* Kernel */ = {
+			isa = PBXGroup;
+			children = (
+				91F7C95A23C82337009DF00C /* KernelProcess.swift */,
+			);
+			path = Kernel;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,9 +141,11 @@
 		OBJ_8 /* SBD */ = {
 			isa = PBXGroup;
 			children = (
+				91F7C95923C82310009DF00C /* Kernel */,
 				OBJ_9 /* main.swift */,
 				91F7C95123C487F2009DF00C /* process_management.swift */,
 				91F7C95323C56701009DF00C /* Daemon.swift */,
+				91F7C95723C80EF1009DF00C /* Kernel.swift */,
 				91F7C95523C6D13A009DF00C /* SignalTrap.swift */,
 			);
 			name = SBD;
@@ -222,9 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				91F7C95823C80EF1009DF00C /* Kernel.swift in Sources */,
 				91F7C95623C6D13A009DF00C /* SignalTrap.swift in Sources */,
 				91F7C95223C487F2009DF00C /* process_management.swift in Sources */,
 				91F7C95423C56701009DF00C /* Daemon.swift in Sources */,
+				91F7C95B23C82337009DF00C /* KernelProcess.swift in Sources */,
 				OBJ_24 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

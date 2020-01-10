@@ -2,7 +2,7 @@ import Darwin
 
 class SignalTrap {
     
-    typealias SignalHandler = (@convention(c)(Int32) -> Void)
+    typealias SignalHandler = @convention(c)(Int32) -> Void
     
     func handle(sender:Any?, signal:Int32, action: @escaping SignalHandler) {
         typealias SignalAction = sigaction
