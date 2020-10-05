@@ -1,2 +1,2 @@
 # SBD
-Swift base deamon. The vase to create deamons using swift
+Swift base deamon. The base to create deamons using swift
